@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  api_projeto-final-m6:
+    container_name: api_projeto-final-m6
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - DB_HOST=db_projeto-final-m6
+      - DB_PASSWORD=1234
+      - DB=projeto_final_m6
+      - DB_USER=dev
+      - SECRET_KEY=chave_secreta
+    depends_on:
+      db_projeto-final-m6:
+        condition: service_healthy
+    volumes:
+      - .:/app
+  
+  db_projeto-final-m6:
+    container_name: db_projeto-final-m6
+    image: postgres:latest
+    ports:
+      - 5431:5432
+    environment:
+      - POSTGRES_USER=dev
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=projeto_final_m6
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev -d projeto_final_m6"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
