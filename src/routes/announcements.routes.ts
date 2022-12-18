@@ -1,8 +1,9 @@
 import { Router } from "express";
-import announcementsGetController from "../controllers/announcements.controllers";
+import {announcementsGetIdController,announcementsGetController} from "../controllers/announcements.controllers";
 
 const announcementsRoutes = Router()
 
 announcementsRoutes.get("", announcementsGetController)
+announcementsRoutes.get("/:id", announcementsGetIdController)
 
 export default announcementsRoutes
