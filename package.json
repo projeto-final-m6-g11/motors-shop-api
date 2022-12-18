@@ -20,6 +20,7 @@
   },
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules src/server.ts",
+    "typeorm": "typeorm-ts-node-commonjs",
     "build": "tsc"
   },
   "name": "contact-book",

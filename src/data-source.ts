@@ -10,7 +10,8 @@ const AppDataSource = new DataSource({
     database: process.env.DB,
     logging: true,
     synchronize: true,
-    entities: []
+    entities: ['src/entities/*.ts'],
+    migrations: ['src/migrations/*.ts'],
     }
 )
 
