@@ -12,7 +12,7 @@ export class Vehicle {
     @Column({ type: 'varchar', length: 127, nullable: false })
     title: string | undefined
 
-    @Column({ type: 'integer', length: 4, nullable: false })
+    @Column({ type: 'integer', nullable: false })
     year: number | undefined
 
     @Column({ type: 'integer', nullable: false })
