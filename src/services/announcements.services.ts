@@ -12,26 +12,21 @@ const createAnAnnouncement = async ({ ...data }: IVehicle) => {
   const newVehicle = vehicleRepository.create({ ...car });
   await vehicleRepository.save(newVehicle);
 
-  images.forEach(async (image, index) => {
-    const imageCar = imageRepository.create({
+  for (let i = 0; i < images.length; i++){
+    const image = images[i]
+
+    const carImage = imageRepository.create({
       imageUrl: image,
       vehicle: newVehicle,
-      type: index === 0 ? "CAPA" : "GALERIA",
+      type: i === 0 ? "COVER" : "GALLERY",
     });
-    await imageRepository.save(imageCar);
-  });
 
-  const returnedCar = () => {
-    return new Promise((resolve) => {
-      setTimeout(async () => {
-        const car = await vehicleRepository.findOneBy({ id: newVehicle.id });
+    await imageRepository.save(carImage);
 
-        resolve(car);
-      }, 500);
-    });
-  };
-
-  return returnedCar();
+    if (i + 1 === images.length){
+      return await vehicleRepository.findOneBy({ id: newVehicle.id})
+    }
+  }
 };
 
 export default createAnAnnouncement;
