@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import AppError from "../errors/AppError";
+import { IVehicle } from "../interfaces/vehicle.interfaces";
+import createAnAnnouncement from "../services/announcements.services";
 import announcementesGetId from "../services/announcementsIdlist.services";
 import announcementesList from "../services/announcementsList.services";
 
@@ -7,6 +9,35 @@ const announcementsGetController = async (req: Request, resp: Response) => {
     const listAnnouncements = await announcementesList()
 
     return resp.json(listAnnouncements)
+};
+
+export const announcementsPostController = async (req: Request, resp: Response) => {
+    
+    const {
+        announcementType,
+        description,
+        images,
+        km,
+        price,
+        published,
+        title,
+        vehicleType,
+        year
+    }: IVehicle = req.body
+
+    const newAnnouncement = await createAnAnnouncement({
+        announcementType,
+        description,
+        images,
+        km,
+        price,
+        published,
+        title,
+        vehicleType,
+        year
+    })
+
+    return resp.json(newAnnouncement)
 };
 
 
