@@ -2,8 +2,9 @@ import AppDataSource from "../data-source";
 import { Vehicle } from "../entities/vehicle.entity";
 import { Image } from "../entities/image.entity";
 import { IVehicle } from "../interfaces/vehicle.interfaces";
+import AppError from "../errors/AppError";
 
-const createAnAnnouncement = async ({ ...data }: IVehicle) => {
+export const createAnAnnouncement = async ({ ...data }: IVehicle) => {
   const vehicleRepository = AppDataSource.getRepository(Vehicle);
   const imageRepository = AppDataSource.getRepository(Image);
 
@@ -34,4 +35,23 @@ const createAnAnnouncement = async ({ ...data }: IVehicle) => {
   return returnedCar();
 };
 
-export default createAnAnnouncement;
+export const announcementesGetId = async (id: string): Promise<Vehicle> => {
+  const vehicleRepository = AppDataSource.getRepository(Vehicle);
+
+  const vehicles = await vehicleRepository.findOneBy({ id });
+
+  if (!vehicles) {
+    throw new AppError("Vehicles not found", 401);
+  }
+
+  return vehicles;
+};
+
+export const announcementesList = async (): Promise<Vehicle[]> => {
+  const vehicleRepository = AppDataSource.getRepository(Vehicle);
+
+  const vehicles = await vehicleRepository.find();
+
+  return vehicles;
+};
+
