@@ -1,16 +1,20 @@
 import { Request, Response } from "express";
 import AppError from "../errors/AppError";
 import { IVehicle } from "../interfaces/vehicle.interfaces";
-import { createAnAnnouncement, announcementesGetId, announcementesList } from "../services/announcements.services";
+import {
+  announcementesGetId,
+  announcementesList,
+  createAnAnnouncement,
+} from "../services/announcements.services";
 
 const announcementsGetController = async (req: Request, resp: Response) => {
-    const listAnnouncements = await announcementesList()
+  const listAnnouncements = await announcementesList();
 
-    return resp.json(listAnnouncements)
+  return resp.json(listAnnouncements);
 };
 
+
 export const announcementsPostController = async (req: Request, resp: Response) => {
-    
     const {
         announcementType,
         description,
@@ -38,13 +42,11 @@ export const announcementsPostController = async (req: Request, resp: Response) 
     return resp.status(201).json(newAnnouncement)
 };
 
-
-
 const announcementsGetIdController = async (req: Request, resp: Response) => {
-    const id:string = req.params.id 
-    const listAnnouncements = await announcementesGetId(id)
+  const id: string = req.params.id;
+  const listAnnouncements = await announcementesGetId(id);
 
-    return resp.json(listAnnouncements)
+  return resp.json(listAnnouncements);
 };
 
-export {announcementsGetIdController,announcementsGetController };
+export { announcementsGetIdController, announcementsGetController };

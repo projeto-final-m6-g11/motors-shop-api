@@ -49,3 +49,4 @@ export const announcementesList = async (): Promise<Vehicle[]> => {
 
   return vehicles;
 };
+
