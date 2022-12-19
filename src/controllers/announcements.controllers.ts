@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
 import AppError from "../errors/AppError";
 import { IVehicle } from "../interfaces/vehicle.interfaces";
-import createAnAnnouncement from "../services/announcements.services";
-import announcementesGetId from "../services/announcementsIdlist.services";
-import announcementesList from "../services/announcementsList.services";
+import { createAnAnnouncement, announcementesGetId, announcementesList } from "../services/announcements.services";
 
 const announcementsGetController = async (req: Request, resp: Response) => {
     const listAnnouncements = await announcementesList()
