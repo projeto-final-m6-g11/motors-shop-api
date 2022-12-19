@@ -37,7 +37,7 @@ export const announcementsPostController = async (req: Request, resp: Response) 
         year
     })
 
-    return resp.json(newAnnouncement)
+    return resp.status(201).json(newAnnouncement)
 };
 
 

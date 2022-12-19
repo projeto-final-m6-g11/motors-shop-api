@@ -1,0 +1,181 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "PROJETO FINAL M6",
+    "description": "Essa API tem como finalidade ajudar no desenvolvimento e entendimento da aplicação desenvolvida no projeto.",
+    "version": "0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "URL base para desenvolvimento"
+    }
+  ],
+  "paths": {
+    "/announcements": {
+      "post": {
+        "summary": "Rota para criação de novos anúncios.",
+        "tags": [
+          "Announcements"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Announcement"
+              },
+              "example": {
+                "announcementType": "SALE",
+                "title": "Título do produto",
+                "year": 2012,
+                "km": 0,
+                "price": 0,
+                "description": "Descrição do produto",
+                "vehicleType": "CAR",
+                "published": true,
+                "images": [
+                  "imagem de capa",
+                  "imagem da galeria"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "CREATED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/AnnouncementResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Rota para listagem de todos os anúncios ativos/publicados.",
+        "tags": [
+          "Announcements"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AnnouncementResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/announcements/{id}": {
+      "get": {
+        "summary": "Rota para listagem de anúncio único ativo/publicado",
+        "tags": [
+          "Announcements"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id do anúncio a ser pesquisado",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/AnnouncementResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Announcement": {
+        "type": "object",
+        "properties": {
+          "announcementType": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "year": {
+            "type": "number"
+          },
+          "km": {
+            "type": "number"
+          },
+          "price": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "vehicleType": {
+            "type": "string"
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "images": {
+            "type": "string"
+          }
+        }
+      },
+      "AnnouncementResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "announcementType": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "year": {
+            "type": "number"
+          },
+          "km": {
+            "type": "number"
+          },
+          "price": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "vehicleType": {
+            "type": "string"
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "images": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
