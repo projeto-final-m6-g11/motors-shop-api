@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Vehicle } from "./vehicle.entity";
 
 @Entity('image')
@@ -12,6 +12,6 @@ export class Image {
     @Column({ type: 'varchar', length: 20, nullable: true })
     type: string | undefined
 
-    @ManyToMany(() => Vehicle)
+    @ManyToOne(() => Vehicle, vehicle => vehicle.images )
     vehicle: Vehicle | undefined
 }
