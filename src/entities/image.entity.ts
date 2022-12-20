@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Vehicle } from "./vehicle.entity";
+import { Announcement } from "./announcement.entity";
 
 @Entity('image')
 export class Image {
@@ -12,6 +12,6 @@ export class Image {
     @Column({ type: 'varchar', length: 20, nullable: true })
     type: string | undefined
 
-    @ManyToOne(() => Vehicle, vehicle => vehicle.images )
-    vehicle: Vehicle | undefined
+    @ManyToOne(() => Announcement, announcement => announcement.images )
+    announcement: Announcement | undefined
 }

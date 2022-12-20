@@ -1,8 +1,8 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Image } from "./image.entity";
 
-@Entity('vehicle')
-export class Vehicle {
+@Entity('announcement')
+export class Announcement {
     @PrimaryGeneratedColumn('uuid')
     id: string | undefined
 
@@ -30,6 +30,6 @@ export class Vehicle {
     @Column({ type: 'boolean', nullable: false })
     published: boolean | undefined
 
-    @OneToMany(() => Image, image => image.vehicle, { eager: true })
+    @OneToMany(() => Image, image => image.announcement, { eager: true })
     images: Image[] | undefined
 }
