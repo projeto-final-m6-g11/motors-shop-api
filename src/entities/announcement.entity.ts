@@ -1,5 +1,6 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Image } from "./image.entity";
+import { User } from "./user.entity";
 
 @Entity('announcement')
 export class Announcement {
@@ -32,4 +33,7 @@ export class Announcement {
 
     @OneToMany(() => Image, image => image.announcement, { eager: true })
     images: Image[] | undefined
+
+    @ManyToOne(() => User, user => user.announcements)
+    user: User | undefined
 }

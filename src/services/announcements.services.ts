@@ -25,7 +25,12 @@ export const createAnAnnouncement = async ({ ...data }: IVehicle) => {
     await imageRepository.save(carImage);
 
     if (i + 1 === images.length){
-      return await vehicleRepository.findOneBy({ id: newAnnouncement.id})
+      return await vehicleRepository.findOne({ where: {
+        id: newAnnouncement.id
+      },
+      relations: {
+        user: true
+      } })
     }
   }
 };
@@ -33,7 +38,13 @@ export const createAnAnnouncement = async ({ ...data }: IVehicle) => {
 export const announcementesGetId = async (id: string): Promise<Announcement> => {
   const vehicleRepository = AppDataSource.getRepository(Announcement);
 
-  const vehicles = await vehicleRepository.findOneBy({ id });
+  const vehicles = await vehicleRepository.findOne({ where: {
+    id
+  },
+    relations: {
+      user: true
+    }
+  });
 
   if (!vehicles) {
     throw new AppError("Announcement not found", 404);
@@ -45,7 +56,9 @@ export const announcementesGetId = async (id: string): Promise<Announcement> => 
 export const announcementesList = async (): Promise<Announcement[]> => {
   const vehicleRepository = AppDataSource.getRepository(Announcement);
 
-  const vehicles = await vehicleRepository.find();
+  const vehicles = await vehicleRepository.find({ relations: {
+    user: true
+  } });
 
   return vehicles;
 };
