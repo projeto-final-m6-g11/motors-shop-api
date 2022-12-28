@@ -18,3 +18,10 @@ export interface ICreateUserRequest {
         }
     }
 }
+
+export interface ILoginRequest {
+    body: {
+        email: string
+        password: string
+    }
+}
