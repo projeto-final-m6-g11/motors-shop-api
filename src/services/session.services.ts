@@ -27,6 +27,7 @@ export const createAuth = async (request: ILoginRequest) => {
     const token = jwt.sign(
         {
             email: account.email,
+            isAdm: account.isAdm,
         },
         process.env.SECRET_KEY as string, 
         {
