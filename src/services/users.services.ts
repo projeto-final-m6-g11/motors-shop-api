@@ -93,3 +93,17 @@ export const updateUser = async (request: IUpdateUserRequest) => {
 
   return user;
 };
+
+export const getAccountByEmail = async (email: string) => {
+    const usersRepository = AppDataSource.getRepository(User)
+
+    const account = await usersRepository.findOneBy({ email: email })
+
+    if (account) {
+        return {
+            ...account
+        }
+    }
+
+    return false
+}
