@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import AppError from "../errors/AppError";
+import { AppError } from "../errors/AppError";
 import { IVehicle } from "../interfaces/vehicle.interfaces";
 import {
   announcementesGetId,
@@ -13,33 +13,35 @@ const announcementsGetController = async (req: Request, resp: Response) => {
   return resp.json(listAnnouncements);
 };
 
+export const announcementsPostController = async (
+  req: Request,
+  resp: Response
+) => {
+  const {
+    announcementType,
+    description,
+    images,
+    km,
+    price,
+    published,
+    title,
+    vehicleType,
+    year,
+  }: IVehicle = req.body;
 
-export const announcementsPostController = async (req: Request, resp: Response) => {
-    const {
-        announcementType,
-        description,
-        images,
-        km,
-        price,
-        published,
-        title,
-        vehicleType,
-        year
-    }: IVehicle = req.body
+  const newAnnouncement = await createAnAnnouncement({
+    announcementType,
+    description,
+    images,
+    km,
+    price,
+    published,
+    title,
+    vehicleType,
+    year,
+  });
 
-    const newAnnouncement = await createAnAnnouncement({
-        announcementType,
-        description,
-        images,
-        km,
-        price,
-        published,
-        title,
-        vehicleType,
-        year
-    })
-
-    return resp.status(201).json(newAnnouncement)
+  return resp.status(201).json(newAnnouncement);
 };
 
 const announcementsGetIdController = async (req: Request, resp: Response) => {
