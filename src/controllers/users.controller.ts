@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { AppError, handleError } from "../errors/AppError";
-import { createUser, updateUser } from "../services/users.services";
+import {
+  createUser,
+  updateUser,
+  updateUserAddress,
+} from "../services/users.services";
 
 export const postUserController = async (
   request: Request,
@@ -23,6 +27,28 @@ export const updateUserController = async (
     const { password: newPassword, ...user } = updatedUser;
 
     return response.status(200).json({ message: "User successfully updated" });
+  } catch (error) {
+    if (error instanceof AppError) {
+      handleError(error, response);
+    }
+  }
+};
+
+export const updateUserAddressController = async (
+  request: Request,
+  response: Response
+) => {
+  try {
+    const userId = request.user.id;
+    const { id } = request.params;
+    const { cep, state, city, district, number, complement } = request.body;
+
+    const address = { id, cep, state, city, district, number, complement };
+
+    const updateAddress = await updateUserAddress(address, userId);
+    return response
+      .status(200)
+      .json({ message: "Address successfully updated" });
   } catch (error) {
     if (error instanceof AppError) {
       handleError(error, response);

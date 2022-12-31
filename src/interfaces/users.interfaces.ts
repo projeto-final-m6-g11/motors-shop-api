@@ -1,4 +1,3 @@
-
 export interface ICreateUserRequest {
   body: {
     name: string;
@@ -34,8 +33,8 @@ export interface IUpdateUserRequest {
 }
 
 export interface ILoginRequest {
-    body: {
-        email: string
-        password: string
-    }
+  body: {
+    email: string;
+    password: string;
+  };
 }

@@ -1,7 +1,9 @@
 import { hash } from "bcryptjs";
 import AppDataSource from "../data-source";
+import { Address } from "../entities/address.entity";
 import { User } from "../entities/user.entity";
 import { AppError } from "../errors/AppError";
+import { IUpdateAddress } from "../interfaces/address.interfaces";
 import {
   ICreateUserRequest,
   IUpdateUserRequest,
@@ -95,15 +97,45 @@ export const updateUser = async (request: IUpdateUserRequest) => {
 };
 
 export const getAccountByEmail = async (email: string) => {
-    const usersRepository = AppDataSource.getRepository(User)
+  const usersRepository = AppDataSource.getRepository(User);
 
-    const account = await usersRepository.findOneBy({ email: email })
+  const account = await usersRepository.findOneBy({ email: email });
 
-    if (account) {
-        return {
-            ...account
-        }
-    }
+  if (account) {
+    return {
+      ...account,
+    };
+  }
 
-    return false
-}
+  return false;
+};
+
+export const updateUserAddress = async (
+  address: IUpdateAddress,
+  userId: string
+) => {
+  const { cep, state, city, district, number, complement, id } = address;
+
+  const addressesRepository = AppDataSource.getRepository(Address);
+  const findAddress = await addressesRepository.findOneBy({ id });
+  if (!findAddress) {
+    throw new AppError("Address not found!", 404);
+  }
+
+  const userRepository = AppDataSource.getRepository(User);
+  const findUser = await userRepository.findOneBy({ id: userId });
+  if (!findUser) {
+    throw new AppError("User not found!", 404);
+  }
+
+  findAddress.cep = cep || findAddress.cep;
+  findAddress.state = state || findAddress.state;
+  findAddress.city = city || findAddress.city;
+  findAddress.district = district || findAddress.district;
+  findAddress.number = number || findAddress.number;
+  findAddress.complement = complement || findAddress.complement;
+
+  await addressesRepository.save(findAddress);
+
+  return findAddress;
+};

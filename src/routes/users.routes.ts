@@ -1,6 +1,9 @@
 import { Router } from "express";
-import { postUserController } from "../controllers/users.controller";
-import { updateUserController } from "../controllers/users.controller";
+import {
+  postUserController,
+  updateUserController,
+  updateUserAddressController,
+} from "../controllers/users.controller";
 
 import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
 import verifyAdmOrOwnerMiddleware from "../middlewares/verifyAdmOrOwner.middleware";
@@ -13,6 +16,12 @@ usersRoutes.patch(
   verifyAuthMiddleware,
   verifyAdmOrOwnerMiddleware,
   updateUserController
+);
+usersRoutes.patch(
+  "/addresses/:id",
+  verifyAuthMiddleware,
+  verifyAdmOrOwnerMiddleware,
+  updateUserAddressController
 );
 
 export default usersRoutes;
