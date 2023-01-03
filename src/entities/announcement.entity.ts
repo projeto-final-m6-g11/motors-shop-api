@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Image } from "./image.entity";
+import { Review } from "./reviews.entity";
 import { User } from "./user.entity";
 
 @Entity('announcement')
@@ -36,4 +37,9 @@ export class Announcement {
 
     @ManyToOne(() => User, user => user.announcements)
     user: User | undefined
+
+    @OneToMany(()=> Review, review=> review.announcement, { eager: true })
+    review : Review[] | undefined
 }
+
+
