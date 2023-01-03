@@ -69,3 +69,16 @@ export const announcementesList = async (): Promise<Announcement[]> => {
 
   return vehicles;
 };
+
+export const listCommentsByAnnouncementsId = async(id: string) => {
+  const vehicleRepository = AppDataSource.getRepository(Announcement);
+  const vehicles = await vehicleRepository.findOne({
+    where: {
+      id,
+    },
+    relations: {
+      
+    },
+  });
+  
+}
