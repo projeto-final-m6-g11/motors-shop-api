@@ -70,15 +70,20 @@ export const announcementesList = async (): Promise<Announcement[]> => {
   return vehicles;
 };
 
-export const listCommentsByAnnouncementsId = async(id: string) => {
+export const listCommentsByAnnouncementsId = async (id: string) => {
   const vehicleRepository = AppDataSource.getRepository(Announcement);
   const vehicles = await vehicleRepository.findOne({
     where: {
       id,
     },
     relations: {
-      
+      review: true,
     },
   });
-  
-}
+
+  if (!vehicles) {
+    throw new AppError("Announcement not found", 404);
+  }
+
+  return vehicles?.review;
+};

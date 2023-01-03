@@ -5,6 +5,7 @@ import {
   announcementesGetId,
   announcementesList,
   createAnAnnouncement,
+  listCommentsByAnnouncementsId,
 } from "../services/announcements.services";
 
 const announcementsGetController = async (req: Request, resp: Response) => {
@@ -51,4 +52,18 @@ const announcementsGetIdController = async (req: Request, resp: Response) => {
   return resp.json(listAnnouncements);
 };
 
-export { announcementsGetIdController, announcementsGetController };
+const announcementsGetCommentsByIDController = async (
+  req: Request,
+  resp: Response
+) => {
+  const id: string = req.params.id;
+  const listCommentsOfAnnouncements = await listCommentsByAnnouncementsId(id);
+
+  return resp.json(listCommentsOfAnnouncements);
+};
+
+export {
+  announcementsGetIdController,
+  announcementsGetController,
+  announcementsGetCommentsByIDController,
+};
