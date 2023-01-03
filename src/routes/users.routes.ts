@@ -3,6 +3,7 @@ import {
   postUserController,
   updateUserController,
   updateUserAddressController,
+  getUserController,
 } from "../controllers/users.controller";
 
 import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
@@ -23,5 +24,9 @@ usersRoutes.patch(
   verifyAdmOrOwnerMiddleware,
   updateUserAddressController
 );
+usersRoutes.get("",
+verifyAuthMiddleware,
+verifyAdmOrOwnerMiddleware, 
+getUserController);
 
 export default usersRoutes;

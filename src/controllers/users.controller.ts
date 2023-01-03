@@ -1,7 +1,9 @@
+
 import { Request, Response } from "express";
 import { AppError, handleError } from "../errors/AppError";
 import {
   createUser,
+  getallUsers,
   updateUser,
   updateUserAddress,
 } from "../services/users.services";
@@ -54,4 +56,13 @@ export const updateUserAddressController = async (
       handleError(error, response);
     }
   }
+};
+
+export const getUserController = async (
+  request: Request,
+  response: Response
+) => {
+  const userList = await getallUsers();
+
+  return response.json(userList)
 };
