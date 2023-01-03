@@ -139,3 +139,25 @@ export const updateUserAddress = async (
 
   return findAddress;
 };
+
+export const getallUsers = async(): Promise<User[]> =>{
+  const userRepository = AppDataSource.getRepository(User)
+
+  const users = await userRepository.find()
+
+  return users
+
+}
+export const getUserId = async(id:string) => {
+  const userRepository = AppDataSource.getRepository(User)
+
+  const user = await userRepository.findOneBy({id})
+
+  if(user){
+    throw new AppError("User not found!", 404);
+  }
+
+  return user
+
+}
+
