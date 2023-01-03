@@ -4,6 +4,7 @@ import { AppError, handleError } from "../errors/AppError";
 import {
   createUser,
   getallUsers,
+  getUserId,
   updateUser,
   updateUserAddress,
 } from "../services/users.services";
@@ -66,3 +67,13 @@ export const getUserController = async (
 
   return response.json(userList)
 };
+export const getUserIdController = async (
+  request: Request,
+  response: Response
+) => {
+  const id:string = request.params.id
+  const userList = await getUserId(id);
+
+  return response.json(userList)
+};
+
