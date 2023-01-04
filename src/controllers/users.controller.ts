@@ -1,4 +1,3 @@
-
 import { Request, Response } from "express";
 import { AppError, handleError } from "../errors/AppError";
 import {
@@ -8,6 +7,7 @@ import {
   updateUser,
   updateUserAddress,
 } from "../services/users.services";
+import { instanceToPlain } from "class-transformer";
 
 export const postUserController = async (
   request: Request,
@@ -15,7 +15,7 @@ export const postUserController = async (
 ) => {
   const newUser = await createUser(request);
 
-  return response.status(201).json(newUser);
+  return response.status(201).json(instanceToPlain(newUser));
 };
 
 export const updateUserController = async (
@@ -65,15 +65,14 @@ export const getUserController = async (
 ) => {
   const userList = await getallUsers();
 
-  return response.json(userList)
+  return response.json(instanceToPlain(userList));
 };
 export const getUserIdController = async (
   request: Request,
   response: Response
 ) => {
-  const id:string = request.params.id
+  const id: string = request.params.id;
   const userList = await getUserId(id);
 
-  return response.json(userList)
+  return response.json(instanceToPlain(userList));
 };
-

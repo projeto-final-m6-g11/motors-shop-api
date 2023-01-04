@@ -1,6 +1,4 @@
-import { Image } from "../entities/image.entity";
-
-export interface IVehicle {
+export interface IAnnouncement {
   announcementType: string;
   title: string;
   year: number;
@@ -10,4 +8,8 @@ export interface IVehicle {
   vehicleType: string;
   published: boolean;
   images: string[];
+}
+
+export interface IAnnouncementWithUser extends IAnnouncement {
+  userId: string;
 }
