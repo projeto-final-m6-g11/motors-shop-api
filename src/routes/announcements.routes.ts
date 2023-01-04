@@ -3,6 +3,7 @@ import {
   announcementsGetIdController,
   announcementsGetController,
   announcementsPostController,
+  announcementsGetCommentsByIDController,
 } from "../controllers/announcements.controllers";
 import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
 
@@ -10,7 +11,10 @@ const announcementsRoutes = Router();
 
 announcementsRoutes.get("", announcementsGetController);
 announcementsRoutes.get("/:id", announcementsGetIdController);
-announcementsRoutes.get("/:id/comments", announcementsGetCommentsByIDController)
+announcementsRoutes.get(
+  "/:id/comments",
+  announcementsGetCommentsByIDController
+);
 announcementsRoutes.post("", verifyAuthMiddleware, announcementsPostController);
 
 export default announcementsRoutes;

@@ -149,7 +149,7 @@ export const getUserId = async (id: string) => {
 
   const user = await userRepository.findOneBy({ id });
 
-  if (user) {
+  if (!user) {
     throw new AppError("User not found!", 404);
   }
 
