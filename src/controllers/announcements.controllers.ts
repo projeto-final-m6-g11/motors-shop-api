@@ -12,7 +12,7 @@ import { instanceToPlain } from "class-transformer";
 const announcementsGetController = async (req: Request, resp: Response) => {
   const listAnnouncements = await announcementesList();
 
-  return resp.json(listAnnouncements);
+  return resp.json(instanceToPlain(listAnnouncements));
 };
 
 export const announcementsPostController = async (
@@ -59,7 +59,7 @@ const announcementsGetIdController = async (req: Request, resp: Response) => {
   const id: string = req.params.id;
   const listAnnouncements = await announcementesGetId(id);
 
-  return resp.json(listAnnouncements);
+  return resp.json(instanceToPlain(listAnnouncements));
 };
 
 const announcementsGetCommentsByIDController = async (

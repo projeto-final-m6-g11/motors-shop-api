@@ -65,7 +65,7 @@ export const getUserController = async (
 ) => {
   const userList = await getallUsers();
 
-  return response.json(userList);
+  return response.json(instanceToPlain(userList));
 };
 export const getUserIdController = async (
   request: Request,
@@ -74,5 +74,5 @@ export const getUserIdController = async (
   const id: string = request.params.id;
   const userList = await getUserId(id);
 
-  return response.json(userList);
+  return response.json(instanceToPlain(userList));
 };
