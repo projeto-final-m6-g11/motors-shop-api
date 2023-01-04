@@ -1,6 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Address } from "./address.entity";
 import { Announcement } from "./announcement.entity";
+import { Recover } from "./recover.entity";
 import { Review } from "./reviews.entity";
 
 @Entity('user')
@@ -40,4 +41,7 @@ export class User {
 
     @OneToMany(()=> Review, review=> review.user, { eager: true })
     review : Review[] | undefined
+
+    @OneToMany(()=> Recover, recover => recover.user)
+    recover: Recover[] | undefined
 }
