@@ -10,6 +10,7 @@ const announcementsRoutes = Router();
 
 announcementsRoutes.get("", announcementsGetController);
 announcementsRoutes.get("/:id", announcementsGetIdController);
+announcementsRoutes.get("/:id/comments", announcementsGetCommentsByIDController)
 announcementsRoutes.post("", verifyAuthMiddleware, announcementsPostController);
 
 export default announcementsRoutes;
