@@ -7,6 +7,7 @@ import SwaggerUi from "swagger-ui-express";
 import swaggerDocs from "../swagger.json";
 import cors from "cors";
 import sessionRoutes from "./routes/session.routes";
+import reviewRoutes from "./routes/reviews.routes";
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,7 @@ app.use(cors());
 app.use("/users", usersRoutes);
 app.use("/announcements", announcementsRoutes);
 app.use("/login", sessionRoutes);
+app.use('/reviews',reviewRoutes);
 
 app.use("/docs", SwaggerUi.serve, SwaggerUi.setup(swaggerDocs));
 app.use(handleErrorMiddleware);
