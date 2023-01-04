@@ -54,10 +54,7 @@ export const createUser = async (request: ICreateUserRequest) => {
 
   const newUserResponse = await usersRepository.findOneBy({ id: newUser.id });
 
-  return {
-    ...newUserResponse,
-    password: undefined,
-  };
+  return newUserResponse;
 };
 
 export const updateUser = async (request: IUpdateUserRequest) => {
@@ -140,24 +137,21 @@ export const updateUserAddress = async (
   return findAddress;
 };
 
-export const getallUsers = async(): Promise<User[]> =>{
-  const userRepository = AppDataSource.getRepository(User)
+export const getallUsers = async (): Promise<User[]> => {
+  const userRepository = AppDataSource.getRepository(User);
 
-  const users = await userRepository.find()
+  const users = await userRepository.find();
 
-  return users
+  return users;
+};
+export const getUserId = async (id: string) => {
+  const userRepository = AppDataSource.getRepository(User);
 
-}
-export const getUserId = async(id:string) => {
-  const userRepository = AppDataSource.getRepository(User)
+  const user = await userRepository.findOneBy({ id });
 
-  const user = await userRepository.findOneBy({id})
-
-  if(user){
+  if (user) {
     throw new AppError("User not found!", 404);
   }
 
-  return user
-
-}
-
+  return user;
+};

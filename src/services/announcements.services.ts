@@ -1,31 +1,60 @@
 import AppDataSource from "../data-source";
 import { Announcement } from "../entities/announcement.entity";
 import { Image } from "../entities/image.entity";
-import { IVehicle } from "../interfaces/vehicle.interfaces";
+import { User } from "../entities/user.entity";
+import { IAnnouncementWithUser } from "../interfaces/announcement.interfaces";
 import { AppError } from "../errors/AppError";
 
-export const createAnAnnouncement = async ({ ...data }: IVehicle) => {
-  const vehicleRepository = AppDataSource.getRepository(Announcement);
+export const createAnAnnouncement = async ({
+  userId,
+  announcementType,
+  title,
+  year,
+  km,
+  price,
+  description,
+  vehicleType,
+  published,
+  images,
+}: IAnnouncementWithUser) => {
+  const announcementRepository = AppDataSource.getRepository(Announcement);
   const imageRepository = AppDataSource.getRepository(Image);
+  const userRepository = AppDataSource.getRepository(User);
 
-  const { images, ...car } = data;
+  const user = await userRepository.findOneBy({ id: userId });
+  if (!user) {
+    throw new AppError("User not found!", 404);
+  }
 
-  const newAnnouncement = vehicleRepository.create({ ...car });
-  await vehicleRepository.save(newAnnouncement);
+  const newAnnouncement = announcementRepository.create({
+    user,
+    announcementType,
+    title,
+    year,
+    km,
+    price,
+    description,
+    vehicleType,
+    published,
+  });
+
+  const showAnnouncement = await announcementRepository.save({
+    ...newAnnouncement,
+  });
 
   for (let i = 0; i < images.length; i++) {
     const image = images[i];
 
     const carImage = imageRepository.create({
       imageUrl: image,
-      announcement: newAnnouncement,
+      announcement: showAnnouncement,
       type: i === 0 ? "COVER" : "GALLERY",
     });
 
     await imageRepository.save(carImage);
 
     if (i + 1 === images.length) {
-      return await vehicleRepository.findOne({
+      return await announcementRepository.findOne({
         where: {
           id: newAnnouncement.id,
         },
