@@ -1,7 +1,16 @@
 import { Request, Response } from "express"
+import { IPostReview } from "../interfaces/review.interfaces";
+import { postReviewService } from "../services/reviews.services";
     
-export const postAuthController = async (request: Request, response: Response) => {
-    const token = await (request);
+export const postReviewController = async (req: Request, res: Response) => {
 
-    return response.json({ token });
+    const id = req.user.id
+    
+    const dados:IPostReview = req.body 
+
+    const announcementId = req.params.id
+    
+    const newReview = await postReviewService(dados,announcementId,id);
+
+    return res.status(201).json(newReview);
 }

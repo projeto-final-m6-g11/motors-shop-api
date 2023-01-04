@@ -1,6 +1,32 @@
 import AppDataSource from "../data-source";
+import { Announcement } from "../entities/announcement.entity";
+import { Review } from "../entities/reviews.entity";
+import { User } from "../entities/user.entity";
 import { AppError } from "../errors/AppError";
+import { IPostReview } from "../interfaces/review.interfaces";
 
-export const postReview = async (user:string, text:string, announcement:string) => {
+export const postReviewService = async({text}:IPostReview,announcementId:string,userId:string):Promise<Review> => {
+
+    const userRepository = AppDataSource.getRepository(User)
+    const reviewRepository = AppDataSource.getRepository(Review)
+    const announcementRepository = AppDataSource.getRepository(Announcement)
+
+    const user = await userRepository.findOneBy({id:userId})
+    if(!user){
+        throw new AppError("User not found!", 404);
+      }
+    const announcement = await announcementRepository.findOneBy({id:announcementId})
+
+    if(!announcement){
+        throw new AppError("User not found!", 404);
+      }
+      
+    const newReview = reviewRepository.create({
+        text,user:user!,announcement:announcement!
+    })
+
+    await reviewRepository.save(newReview)
+
+    return newReview
 
 };

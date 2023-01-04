@@ -20,6 +20,7 @@ const verifyAdmOrOwnerMiddleware = async (
     } else {
       throw new AppError("Unauthorized!", 403);
     }
+    
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, resp);
