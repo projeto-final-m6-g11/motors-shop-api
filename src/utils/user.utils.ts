@@ -3,7 +3,7 @@ import { Address } from "../entities/address.entity";
 import { ICreateAddress } from "../interfaces/address.interfaces";
 
 export const createAddress = async (address: ICreateAddress) => {
-  const { cep, state, city, district, number, complement } = address;
+  const { cep, state, city, street, number, complement } = address;
 
   const addressesRepository = AppDataSource.getRepository(Address);
 
@@ -12,7 +12,7 @@ export const createAddress = async (address: ICreateAddress) => {
       cep,
       state,
       city,
-      district,
+      street,
       number,
     };
 
@@ -26,7 +26,7 @@ export const createAddress = async (address: ICreateAddress) => {
     cep,
     state,
     city,
-    district,
+    street,
     number,
     complement,
   };

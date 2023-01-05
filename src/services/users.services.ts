@@ -11,7 +11,7 @@ import {
 import { createAddress } from "../utils/user.utils";
 
 export const createUser = async (request: ICreateUserRequest) => {
-  const { name, email, cpf, phone, birthdate, bio, password, isAdm, address } =
+  const { name, email, cpf, phone, birthdate, bio, password, isAdvertiser, isAdm, address } =
     request.body;
 
   const usersRepository = AppDataSource.getRepository(User);
@@ -45,6 +45,7 @@ export const createUser = async (request: ICreateUserRequest) => {
     birthdate: newBirthDate,
     bio,
     password: hashedPassword,
+    isAdvertiser,
     isAdm,
     address: userAddress,
   };
@@ -111,7 +112,7 @@ export const updateUserAddress = async (
   address: IUpdateAddress,
   userId: string
 ) => {
-  const { cep, state, city, district, number, complement, id } = address;
+  const { cep, state, city, street, number, complement, id } = address;
 
   const addressesRepository = AppDataSource.getRepository(Address);
   const findAddress = await addressesRepository.findOneBy({ id });
@@ -128,7 +129,7 @@ export const updateUserAddress = async (
   findAddress.cep = cep || findAddress.cep;
   findAddress.state = state || findAddress.state;
   findAddress.city = city || findAddress.city;
-  findAddress.district = district || findAddress.district;
+  findAddress.street = street || findAddress.street;
   findAddress.number = number || findAddress.number;
   findAddress.complement = complement || findAddress.complement;
 

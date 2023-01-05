@@ -16,7 +16,7 @@ export class Address {
     city: string | undefined
 
     @Column({ type: 'varchar', nullable: false })
-    district: string | undefined
+    street: string | undefined
 
     @Column({ type: 'integer', nullable: false })
     number: string | undefined
