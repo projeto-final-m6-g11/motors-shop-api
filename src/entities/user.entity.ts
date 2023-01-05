@@ -47,7 +47,7 @@ export class User {
   @ManyToOne(() => Address, (address) => address.users, { eager: true })
   address: Address | undefined;
 
-  @OneToMany(() => Announcement, (announcement) => announcement.user)
+  @OneToMany(() => Announcement, (announcement) => announcement.user, { eager: true })
   announcements: Announcement[] | undefined;
 
   @OneToMany(()=> Review, review=> review.user, { eager: true })
