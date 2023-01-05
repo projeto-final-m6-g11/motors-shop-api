@@ -32,7 +32,6 @@ getUserController);
 
 usersRoutes.get("/:id",
 verifyAuthMiddleware,
-verifyAdmOrOwnerMiddleware, 
 getUserIdController);
 
 export default usersRoutes;
