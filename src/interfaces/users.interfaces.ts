@@ -7,12 +7,13 @@ export interface ICreateUserRequest {
     birthdate: string;
     bio: string;
     password: string;
-    isAdm: boolean;
+    isAdvertiser: boolean
+    isAdm: boolean
     address: {
       cep: string;
       state: string;
       city: string;
-      district: string;
+      street: string;
       number: string;
       complement?: string;
     };

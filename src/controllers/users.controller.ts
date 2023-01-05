@@ -44,9 +44,9 @@ export const updateUserAddressController = async (
   try {
     const userId = request.user.id;
     const { id } = request.params;
-    const { cep, state, city, district, number, complement } = request.body;
+    const { cep, state, city, street, number, complement } = request.body;
 
-    const address = { id, cep, state, city, district, number, complement };
+    const address = { id, cep, state, city, street, number, complement };
 
     const updateAddress = await updateUserAddress(address, userId);
     return response

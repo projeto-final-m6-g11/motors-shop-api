@@ -38,6 +38,9 @@ export class User {
   @Exclude()
   password: string | undefined;
 
+  @Column({ type: "boolean", nullable: false })
+  isAdvertiser: boolean
+
   @Column({ type: "boolean" })
   isAdm: boolean | undefined;
 
