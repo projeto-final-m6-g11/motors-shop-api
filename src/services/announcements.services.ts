@@ -106,7 +106,9 @@ export const listCommentsByAnnouncementsId = async (id: string) => {
       id,
     },
     relations: {
-      review: true,
+      review: {
+        user: true,
+      },
     },
   });
 

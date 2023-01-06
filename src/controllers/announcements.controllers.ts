@@ -69,7 +69,7 @@ const announcementsGetCommentsByIDController = async (
   const id: string = req.params.id;
   const listCommentsOfAnnouncements = await listCommentsByAnnouncementsId(id);
 
-  return resp.json(listCommentsOfAnnouncements);
+  return resp.json(instanceToPlain(listCommentsOfAnnouncements));
 };
 
 export {
