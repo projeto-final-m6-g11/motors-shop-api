@@ -77,6 +77,9 @@ export const announcementesGetId = async (
     },
     relations: {
       user: true,
+      review: {
+        user: true,
+      },
     },
   });
 
