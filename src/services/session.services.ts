@@ -66,7 +66,7 @@ export const createForgotPasswordRegister = async (requestBody: IForgotRequest) 
         },
         process.env.SECRET_KEY as string,
         {
-          expiresIn: "1d",
+          expiresIn: "1h",
           subject: tokenId,
         }
     );
@@ -93,7 +93,7 @@ export const createForgotPasswordRegister = async (requestBody: IForgotRequest) 
     })
 
     await transporter.sendMail({
-        text: `Aqui está seu link para alteração de senha ${recover.token}`,
+        text: `Aqui está seu link para alteração de senha http://localhost:3001/recoveraccount/${recover.token}`,
         subject: 'Recuperação de senha - Motors Shop Store',
         from: 'Mateus Kenzie <projetofinalm6g11@gmail.com>',
         to: [email]
