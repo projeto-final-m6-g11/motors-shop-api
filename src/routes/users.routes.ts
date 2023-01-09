@@ -31,7 +31,6 @@ verifyAdmOrOwnerMiddleware,
 getUserController);
 
 usersRoutes.get("/:id",
-verifyAuthMiddleware,
 getUserIdController);
 
 export default usersRoutes;
