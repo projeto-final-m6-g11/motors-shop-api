@@ -5,8 +5,9 @@ import {
   announcementesList,
   createAnAnnouncement,
   listCommentsByAnnouncementsId,
+  updateAnnouncements,
 } from "../services/announcements.services";
-import { IAnnouncement } from "../interfaces/announcement.interfaces";
+import { IAnnouncement, IannoumentsRequest } from "../interfaces/announcement.interfaces";
 import { instanceToPlain } from "class-transformer";
 
 const announcementsGetController = async (req: Request, resp: Response) => {
@@ -70,6 +71,15 @@ const announcementsGetCommentsByIDController = async (
   const listCommentsOfAnnouncements = await listCommentsByAnnouncementsId(id);
 
   return resp.json(instanceToPlain(listCommentsOfAnnouncements));
+};
+
+export const updateAnnouncementsController = async (req: Request,res: Response) => {
+  const announcement: IannoumentsRequest = req.body
+  const id : string = req.params.id
+  const updateAnnouncementsRes = await updateAnnouncements(announcement,id)
+
+  return res.json(updateAnnouncementsRes)
+
 };
 
 export {
