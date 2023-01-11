@@ -7,9 +7,9 @@ import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
 const announcementsRoutes = Router();
 
 announcementsRoutes.get("", announcementsGetController)
-announcementsRoutes.get("/:id", announcementsGetIdController)s
+announcementsRoutes.get("/:id", announcementsGetIdController)
 announcementsRoutes.patch("/:id", verifyAuthMiddleware, verifyAdmOrOwnerMiddleware, updateAnnouncementsController )
-announcementsRoutes.delete("/:id", deleteAnnouncement )
+announcementsRoutes.delete("/:id",verifyAuthMiddleware, verifyAdmOrOwnerMiddleware, deleteAnnouncement )
 announcementsRoutes.get("/:id/comments", announcementsGetCommentsByIDController)
 announcementsRoutes.post("", verifyAuthMiddleware, announcementsPostController)
 announcementsRoutes.post("/:id/comments",verifyAuthMiddleware,postReviewController)
