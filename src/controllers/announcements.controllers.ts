@@ -4,6 +4,7 @@ import {
   announcementesGetId,
   announcementesList,
   createAnAnnouncement,
+  deleteAnnouncementService,
   listCommentsByAnnouncementsId,
 } from "../services/announcements.services";
 import { IAnnouncement } from "../interfaces/announcement.interfaces";
@@ -71,6 +72,13 @@ const announcementsGetCommentsByIDController = async (
 
   return resp.json(instanceToPlain(listCommentsOfAnnouncements));
 };
+
+export const deleteAnnouncement = async(req:Request, res:Response)=>{
+  const id :string = req.params.id
+  await deleteAnnouncementService(id)
+  return res.status(204).send()
+
+}
 
 export {
   announcementsGetIdController,
