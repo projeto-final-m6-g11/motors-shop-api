@@ -4,6 +4,7 @@ import {
   announcementesGetId,
   announcementesList,
   createAnAnnouncement,
+  deleteAnnouncementService,
   listCommentsByAnnouncementsId,
   updateAnnouncements,
 } from "../services/announcements.services";
@@ -81,6 +82,12 @@ export const updateAnnouncementsController = async (req: Request,res: Response) 
   return res.json(updateAnnouncementsRes)
 
 };
+export const deleteAnnouncement = async(req:Request, res:Response)=>{
+  const id :string = req.params.id
+  await deleteAnnouncementService(id)
+  return res.status(204).send()
+
+}
 
 export {
   announcementsGetIdController,

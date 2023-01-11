@@ -192,3 +192,17 @@ export const updateAnnouncements = async (
 
     return announcementRes;
 };
+
+export const deleteAnnouncementService = async(id:string) => {
+  
+  const announcementRepository = AppDataSource.getRepository(Announcement);
+
+  const announcementFind = await announcementRepository.findOneBy({id})
+
+  if(!announcementFind){
+    throw new AppError("Announcement not found", 404)
+  }
+  await announcementRepository.update(id, {published:false})
+
+
+}
