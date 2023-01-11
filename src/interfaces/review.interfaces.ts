@@ -9,3 +9,8 @@ export interface IUpdateReview {
   id: string
   userId: string
 }
+
+export interface IDeleteReview {
+  id: string
+  userId: string
+}

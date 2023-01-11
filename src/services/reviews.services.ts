@@ -3,7 +3,7 @@ import { Announcement } from "../entities/announcement.entity";
 import { Review } from "../entities/reviews.entity";
 import { User } from "../entities/user.entity";
 import { AppError } from "../errors/AppError";
-import { IPostReview, IUpdateReview } from "../interfaces/review.interfaces";
+import { IDeleteReview, IPostReview, IUpdateReview } from "../interfaces/review.interfaces";
 
 export const postReviewService = async({text}:IPostReview,announcementId:string,userId:string):Promise<Review> => {
 
@@ -32,7 +32,6 @@ export const postReviewService = async({text}:IPostReview,announcementId:string,
 };
 
 export const updateReview = async ({ text, id, userId }: IUpdateReview) => {
-
   const commentsRepository = AppDataSource.getRepository(Review)
   const usersRepository =  AppDataSource.getRepository(User)
 
@@ -50,6 +49,32 @@ export const updateReview = async ({ text, id, userId }: IUpdateReview) => {
 
     if (review.id === id) {
       await commentsRepository.update(id, { text })
+
+      return true
+    }
+  }
+
+  throw new AppError('Unauthorized', 401);
+}
+
+export const deleteReview = async ({ id, userId }: IDeleteReview) => {
+  const commentsRepository = AppDataSource.getRepository(Review)
+  const usersRepository =  AppDataSource.getRepository(User)
+
+  const userToVerify = await usersRepository.findOneBy({ id: userId })
+  const commentToUpdate = await commentsRepository.findOneBy({ id })
+
+  if (!commentToUpdate) {
+    throw new AppError('comment not found', 404);
+  }
+
+  const userReviews: any = userToVerify?.review
+
+  for (let i = 0; i < userReviews.length; i++) {
+    const review = userReviews[i]
+
+    if (review.id === id) {
+      await commentsRepository.delete(id)
 
       return true
     }
