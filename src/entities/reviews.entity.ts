@@ -6,7 +6,7 @@ import { User } from "./user.entity";
 @Entity('review')
 export class Review {
     @PrimaryGeneratedColumn('uuid')
-    id: string | undefined
+    id: string
 
     @Column({ type: 'varchar',nullable: true })
     text: string | undefined
