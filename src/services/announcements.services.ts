@@ -2,8 +2,12 @@ import AppDataSource from "../data-source";
 import { Announcement } from "../entities/announcement.entity";
 import { Image } from "../entities/image.entity";
 import { User } from "../entities/user.entity";
-import { IAnnouncementWithUser } from "../interfaces/announcement.interfaces";
+import {
+  IannoumentsRequest,
+  IAnnouncementWithUser,
+} from "../interfaces/announcement.interfaces";
 import { AppError } from "../errors/AppError";
+import { announcementsGetController } from "../controllers/announcements.controllers";
 
 export const createAnAnnouncement = async ({
   userId,
@@ -120,6 +124,73 @@ export const listCommentsByAnnouncementsId = async (id: string) => {
   }
 
   return vehicles?.review;
+};
+
+export const updateAnnouncements = async (
+  {
+    announcementType,
+    title,
+    year,
+    km,
+    price,
+    description,
+    vehicleType,
+    published,
+    images,
+  }: IannoumentsRequest,
+  id: string
+) => {
+  const announcementRespositoy = AppDataSource.getRepository(Announcement);
+
+  const findAnnouncement = await announcementRespositoy.findOneBy({ id });
+  
+  const imageRepository = AppDataSource.getRepository(Image);
+
+  if (!findAnnouncement) {
+    throw new AppError("Announcement not found", 404);
+  }
+
+  await announcementRespositoy.update(id, {
+    announcementType:announcementType ? announcementType: findAnnouncement.announcementType,
+    title:title ? title: findAnnouncement.title,
+    year:year ? year: findAnnouncement.year,
+    km:km ? km: findAnnouncement.km,
+    price:price ? price: findAnnouncement.price,
+    description:description ? description: findAnnouncement.description,
+    vehicleType:vehicleType ? vehicleType: findAnnouncement.vehicleType,
+    published:published ? published: findAnnouncement.published
+  });
+  
+  const announcementRes = await announcementRespositoy.findOneBy({id})
+    
+    if(images){
+      for (let i = 0; i < images.length; i++) {
+        const image = images[i];
+    
+        const carImage = imageRepository.create({
+          imageUrl: image,
+          announcement: announcementRes!,
+          type: i === 0 ? "COVER" : "GALLERY",
+        });
+    
+        await imageRepository.save(carImage);
+    
+        if (i + 1 === images.length) {
+          return await announcementRespositoy.findOne({
+            where: {
+              id: id,
+            },
+            relations: {
+              user: true,
+            },
+          });
+        }
+      }
+    }
+
+
+
+    return announcementRes;
 };
 
 export const deleteAnnouncementService = async(id:string) => {

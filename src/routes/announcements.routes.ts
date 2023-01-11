@@ -1,12 +1,14 @@
 import { Router } from "express";
-import {announcementsGetIdController,announcementsGetController, announcementsPostController,announcementsGetCommentsByIDController, deleteAnnouncement} from "../controllers/announcements.controllers";
+import {announcementsGetIdController,announcementsGetController, announcementsPostController,announcementsGetCommentsByIDController, updateAnnouncementsController, deleteAnnouncement} from "../controllers/announcements.controllers";
 import { postReviewController } from "../controllers/reviws.controller";
+import verifyAdmOrOwnerMiddleware from "../middlewares/verifyAdmOrOwner.middleware";
 import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
 
 const announcementsRoutes = Router();
 
 announcementsRoutes.get("", announcementsGetController)
-announcementsRoutes.get("/:id", announcementsGetIdController)
+announcementsRoutes.get("/:id", announcementsGetIdController)s
+announcementsRoutes.patch("/:id", verifyAuthMiddleware, verifyAdmOrOwnerMiddleware, updateAnnouncementsController )
 announcementsRoutes.delete("/:id", deleteAnnouncement )
 announcementsRoutes.get("/:id/comments", announcementsGetCommentsByIDController)
 announcementsRoutes.post("", verifyAuthMiddleware, announcementsPostController)
