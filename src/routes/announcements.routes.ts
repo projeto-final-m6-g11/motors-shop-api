@@ -8,8 +8,8 @@ const announcementsRoutes = Router();
 
 announcementsRoutes.get("", announcementsGetController)
 announcementsRoutes.get("/:id", announcementsGetIdController)
-announcementsRoutes.patch("/:id", verifyAuthMiddleware, verifyAdmOrOwnerMiddleware, updateAnnouncementsController )
-announcementsRoutes.delete("/:id",verifyAuthMiddleware, verifyAdmOrOwnerMiddleware, deleteAnnouncement )
+announcementsRoutes.patch("/:id", verifyAuthMiddleware, updateAnnouncementsController )
+announcementsRoutes.delete("/:id",verifyAuthMiddleware, deleteAnnouncement )
 announcementsRoutes.get("/:id/comments", announcementsGetCommentsByIDController)
 announcementsRoutes.post("", verifyAuthMiddleware, announcementsPostController)
 announcementsRoutes.post("/:id/comments",verifyAuthMiddleware,postReviewController)
