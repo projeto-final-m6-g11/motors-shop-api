@@ -16,7 +16,6 @@ usersRoutes.post("", postUserController);
 usersRoutes.patch(
   "/:id",
   verifyAuthMiddleware,
-  verifyAdmOrOwnerMiddleware,
   updateUserController
 );
 usersRoutes.patch(
