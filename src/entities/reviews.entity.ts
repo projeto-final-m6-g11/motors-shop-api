@@ -9,14 +9,14 @@ export class Review {
     id: string
 
     @Column({ type: 'varchar',nullable: true })
-    text: string | undefined
+    text: string
 
     @CreateDateColumn()
-    createDate: Date | undefined
+    createDate: Date
 
     @ManyToOne(()=> User)
-    user: User | undefined
+    user: User
   
     @ManyToOne(()=> Announcement)
-    announcement: Announcement | undefined
+    announcement: Announcement
 }
