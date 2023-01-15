@@ -12,38 +12,40 @@ import { User } from "./user.entity";
 @Entity("announcement")
 export class Announcement {
   @PrimaryGeneratedColumn("uuid")
-  id: string | undefined;
+  id: string
 
   @Column({ type: "varchar", length: 20, nullable: false })
-  announcementType: string | undefined;
+  announcementType: string
 
   @Column({ type: "varchar", length: 127, nullable: false })
-  title: string | undefined;
+  title: string
 
   @Column({ type: "integer", nullable: false })
-  year: number | undefined;
+  year: number
 
   @Column({ type: "integer", nullable: false })
-  km: number | undefined;
+  km: number
 
   @Column("decimal", { precision: 12, scale: 2, nullable: false })
-  price: number | undefined;
+  price: number
 
   @Column({ type: "varchar", length: 255, nullable: false })
-  description: string | undefined;
+  description: string
 
   @Column({ type: "varchar", length: 20, nullable: false })
-  vehicleType: string | undefined;
+  vehicleType: string 
 
   @Column({ type: "boolean", nullable: false })
-  published: boolean | undefined;
+  published: boolean
 
   @OneToMany(() => Image, (image) => image.announcement, { eager: true })
-  images: Image[] | undefined;
+  images: Image[]
 
   @ManyToOne(() => User, (user) => user.announcements)
-  user: User | undefined;
+  user: User
 
   @OneToMany(() => Review, (review) => review.announcement, { eager: true })
-  review: Review[] | undefined;
+  review: Review[]
 }
+
+//criar entidade para lances do leilão

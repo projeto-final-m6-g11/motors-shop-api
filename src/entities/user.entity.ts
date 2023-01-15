@@ -14,45 +14,45 @@ import { Review } from "./reviews.entity";
 @Entity("user")
 export class User {
   @PrimaryGeneratedColumn("uuid")
-  id: string | undefined;
+  id: string
 
   @Column({ type: "varchar", nullable: false, length: 127 })
-  name: string | undefined;
+  name: string
 
   @Column({ type: "varchar", nullable: false })
-  email: string | undefined;
+  email: string
 
   @Column({ type: "varchar", nullable: false, length: 11 })
-  cpf: string | undefined;
+  cpf: string
 
   @Column({ type: "varchar", nullable: false, length: 11 })
-  phone: string | undefined;
+  phone: string
 
   @Column({ type: "date", nullable: false })
-  birthdate: Date | undefined;
+  birthdate: Date
 
   @Column({ type: "varchar", nullable: false, length: 255 })
-  bio: string | undefined;
+  bio: string
 
   @Column({ type: "varchar", nullable: false })
   @Exclude()
-  password: string | undefined;
+  password: string
 
   @Column({ type: "boolean", nullable: false })
   isAdvertiser: boolean
 
   @Column({ type: "boolean" })
-  isAdm: boolean | undefined;
+  isAdm: boolean
 
   @ManyToOne(() => Address, (address) => address.users, { eager: true })
-  address: Address | undefined;
+  address: Address
 
   @OneToMany(() => Announcement, (announcement) => announcement.user, { eager: true })
-  announcements: Announcement[] | undefined;
+  announcements: Announcement[]
 
   @OneToMany(()=> Review, review=> review.user, { eager: true })
-  review : Review[] | undefined
+  review : Review[]
 
   @OneToMany(()=> Recover, recover => recover.user)
-  recover: Recover[] | undefined
+  recover: Recover[]
 }

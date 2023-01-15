@@ -4,14 +4,14 @@ import { Announcement } from "./announcement.entity";
 @Entity('image')
 export class Image {
     @PrimaryGeneratedColumn('uuid')
-    id: string | undefined
+    id: string
 
     @Column({ type: 'varchar', length: 255, nullable: false })
-    imageUrl: string | undefined
+    imageUrl: string
 
     @Column({ type: 'varchar', length: 20, nullable: true })
-    type: string | undefined
+    type: string
 
     @ManyToOne(() => Announcement, announcement => announcement.images )
-    announcement: Announcement | undefined
+    announcement: Announcement
 }

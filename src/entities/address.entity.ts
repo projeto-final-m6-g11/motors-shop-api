@@ -4,26 +4,26 @@ import { User } from "./user.entity";
 @Entity('address')
 export class Address {
     @PrimaryGeneratedColumn('uuid')
-    id: string | undefined
+    id: string
 
     @Column({ type: 'varchar', nullable: false })
-    cep: string | undefined
+    cep: string
 
     @Column({ type: 'varchar', nullable: false, length: 2 })
-    state: string  | undefined
+    state: string
 
     @Column({ type: 'varchar', nullable: false })
-    city: string | undefined
+    city: string
 
     @Column({ type: 'varchar', nullable: false })
-    street: string | undefined
+    street: string
 
     @Column({ type: 'integer', nullable: false })
-    number: string | undefined
+    number: string
 
     @Column({ type: 'varchar', nullable: true, length: 127 })
-    complement: string | undefined
+    complement: string
 
     @OneToMany(() => User, user => user.address)
-    users: User[] | undefined
+    users: User[]
 }
