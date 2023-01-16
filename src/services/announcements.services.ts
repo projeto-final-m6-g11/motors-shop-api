@@ -4,6 +4,7 @@ import { Image } from "../entities/image.entity";
 import { User } from "../entities/user.entity";
 import {
   IannoumentsRequest,
+  IAnnouncementAuction,
   IAnnouncementWithUser,
 } from "../interfaces/announcement.interfaces";
 import { AppError } from "../errors/AppError";
@@ -205,4 +206,54 @@ export const deleteAnnouncementService = async(id:string) => {
   await announcementRepository.update(id, {published:false})
 
 
+}
+
+export const createAuction = async ({ userId, announcementType, description, images, km, price, published, title, vehicleType, year }: IAnnouncementWithUser) => {
+    const user = await AppDataSource.getRepository(User).findOneBy({ id: userId })
+    const announcementRepository = AppDataSource.getRepository(Announcement)
+    const imagesRepository = AppDataSource.getRepository(Image)
+
+    if(!user) {
+        throw new AppError("user not found", 404);
+    }
+
+    const newAuction = announcementRepository.create({
+        user,
+        announcementType: 'AUCTION',
+        description,
+        km,
+        price,
+        published,
+        title,
+        vehicleType,
+        year,
+    })
+
+    const newAnnouncement = await announcementRepository.save({
+        ...newAuction,
+        announcementType: 'AUCTION',
+    })
+
+    for (let i = 0; i < images.length; i++) {
+        const image = images[i];
+    
+        const carImage = imagesRepository.create({
+          imageUrl: image,
+          announcement: newAnnouncement,
+          type: i === 0 ? "COVER" : "GALLERY",
+        });
+    
+        await imagesRepository.save(carImage);
+    
+        if (i + 1 === images.length) {
+          return await announcementRepository.findOne({
+            where: {
+              id: newAnnouncement.id,
+            },
+            relations: {
+              user: true,
+            },
+          });
+        }
+      }
 }
