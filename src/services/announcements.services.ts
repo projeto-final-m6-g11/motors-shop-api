@@ -4,7 +4,6 @@ import { Image } from "../entities/image.entity";
 import { User } from "../entities/user.entity";
 import {
   IannoumentsRequest,
-  IAnnouncementAuction,
   IAnnouncementWithUser,
 } from "../interfaces/announcement.interfaces";
 import { AppError } from "../errors/AppError";
@@ -33,7 +32,7 @@ export const createAnAnnouncement = async ({
 
   const newAnnouncement = announcementRepository.create({
     user,
-    announcementType,
+    announcementType: 'SALE',
     title,
     year,
     km,
@@ -45,6 +44,7 @@ export const createAnAnnouncement = async ({
 
   const showAnnouncement = await announcementRepository.save({
     ...newAnnouncement,
+    announcementType: 'SALE',
   });
 
   for (let i = 0; i < images.length; i++) {
