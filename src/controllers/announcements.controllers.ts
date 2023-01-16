@@ -4,14 +4,15 @@ import {
   announcementesGetId,
   announcementesList,
   createAnAnnouncement,
+  createAuction,
   deleteAnnouncementService,
   listCommentsByAnnouncementsId,
   updateAnnouncements,
 } from "../services/announcements.services";
-import { IAnnouncement, IannoumentsRequest } from "../interfaces/announcement.interfaces";
+import { IAnnouncement, IannoumentsRequest, IAnnouncementAuction } from "../interfaces/announcement.interfaces";
 import { instanceToPlain } from "class-transformer";
 
-const announcementsGetController = async (req: Request, resp: Response) => {
+export const announcementsGetController = async (req: Request, resp: Response) => {
   const listAnnouncements = await announcementesList();
 
   return resp.json(instanceToPlain(listAnnouncements));
@@ -57,14 +58,14 @@ export const announcementsPostController = async (
   }
 };
 
-const announcementsGetIdController = async (req: Request, resp: Response) => {
+export const announcementsGetIdController = async (req: Request, resp: Response) => {
   const id: string = req.params.id;
   const listAnnouncements = await announcementesGetId(id);
 
   return resp.json(instanceToPlain(listAnnouncements));
 };
 
-const announcementsGetCommentsByIDController = async (
+export const announcementsGetCommentsByIDController = async (
   req: Request,
   resp: Response
 ) => {
@@ -82,15 +83,29 @@ export const updateAnnouncementsController = async (req: Request,res: Response) 
   return res.json(updateAnnouncementsRes)
 
 };
-export const deleteAnnouncement = async(req:Request, res:Response)=>{
+export const deleteAnnouncement = async (req:Request, res:Response) => {
   const id :string = req.params.id
   await deleteAnnouncementService(id)
   return res.status(204).send()
 
 }
 
-export {
-  announcementsGetIdController,
-  announcementsGetController,
-  announcementsGetCommentsByIDController,
-};
+export const postAuctionController = async (request: Request, response: Response) => {
+  const userId = request.user.id;
+
+  const {
+    announcementType,
+    description,
+    images,
+    km,
+    price,
+    published,
+    title,
+    vehicleType,
+    year,
+  }: IAnnouncementAuction = request.body;
+
+  const newAuctionAnnouncement = await createAuction({ userId, announcementType, description, images, km, price, published, title, vehicleType, year })
+
+  return response.status(201).json(newAuctionAnnouncement)
+}

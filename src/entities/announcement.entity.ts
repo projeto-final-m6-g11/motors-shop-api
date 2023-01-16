@@ -5,6 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Bid } from "./bid.entity";
 import { Image } from "./image.entity";
 import { Review } from "./reviews.entity";
 import { User } from "./user.entity";
@@ -46,6 +47,7 @@ export class Announcement {
 
   @OneToMany(() => Review, (review) => review.announcement, { eager: true })
   review: Review[]
-}
 
-//criar entidade para lances do leilão
+  @OneToMany(() => Bid, (bid) => bid.announcement)
+  bids: Bid[]
+}

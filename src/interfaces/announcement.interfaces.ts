@@ -10,6 +10,19 @@ export interface IAnnouncement {
   images: string[];
 }
 
+export interface IAnnouncementAuction {
+  userId: string
+  announcementType: string;
+  title: string;
+  year: number;
+  km: number;
+  price: number;
+  description: string;
+  vehicleType: string;
+  published: boolean;
+  images: string[];
+}
+
 export interface IAnnouncementWithUser extends IAnnouncement {
   userId: string;
 }
