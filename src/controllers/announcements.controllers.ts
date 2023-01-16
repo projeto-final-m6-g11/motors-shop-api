@@ -4,7 +4,6 @@ import {
   announcementesGetId,
   announcementesList,
   createAnAnnouncement,
-  createAuction,
   deleteAnnouncementService,
   listCommentsByAnnouncementsId,
   updateAnnouncements,
@@ -88,24 +87,4 @@ export const deleteAnnouncement = async (req:Request, res:Response) => {
   await deleteAnnouncementService(id)
   return res.status(204).send()
 
-}
-
-export const postAuctionController = async (request: Request, response: Response) => {
-  const userId = request.user.id;
-
-  const {
-    announcementType,
-    description,
-    images,
-    km,
-    price,
-    published,
-    title,
-    vehicleType,
-    year,
-  }: IAnnouncementAuction = request.body;
-
-  const newAuctionAnnouncement = await createAuction({ userId, announcementType, description, images, km, price, published, title, vehicleType, year })
-
-  return response.status(201).json(newAuctionAnnouncement)
 }
