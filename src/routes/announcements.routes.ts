@@ -1,7 +1,6 @@
 import { Router } from "express";
-import {announcementsGetIdController,announcementsGetController, announcementsPostController,announcementsGetCommentsByIDController, updateAnnouncementsController, deleteAnnouncement, postAuctionController} from "../controllers/announcements.controllers";
+import {announcementsGetIdController,announcementsGetController, announcementsPostController,announcementsGetCommentsByIDController, updateAnnouncementsController, deleteAnnouncement } from "../controllers/announcements.controllers";
 import { postReviewController } from "../controllers/reviws.controller";
-import verifyAdmOrOwnerMiddleware from "../middlewares/verifyAdmOrOwner.middleware";
 import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
 
 const announcementsRoutes = Router();
@@ -13,6 +12,5 @@ announcementsRoutes.delete("/:id",verifyAuthMiddleware, deleteAnnouncement )
 announcementsRoutes.get("/:id/comments", announcementsGetCommentsByIDController)
 announcementsRoutes.post("", verifyAuthMiddleware, announcementsPostController)
 announcementsRoutes.post("/:id/comments",verifyAuthMiddleware,postReviewController)
-announcementsRoutes.post('/auction', verifyAuthMiddleware, postAuctionController)
 
 export default announcementsRoutes;
