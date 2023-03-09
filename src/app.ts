@@ -8,7 +8,6 @@ import swaggerDocs from "../swagger.json";
 import cors from "cors";
 import sessionRoutes from "./routes/session.routes";
 import commentsRoutes from "./routes/comments.routes";
-import bidRoutes from "./routes/bids.routes";
 
 const app = express();
 app.use(express.json());
@@ -18,7 +17,6 @@ app.use("/users", usersRoutes);
 app.use("/announcements", announcementsRoutes);
 app.use("/login", sessionRoutes);
 app.use('/comments', commentsRoutes);
-app.use('/bids', bidRoutes);
 
 app.use("/docs", SwaggerUi.serve, SwaggerUi.setup(swaggerDocs));
 app.use(handleErrorMiddleware);
