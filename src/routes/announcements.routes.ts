@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {announcementsGetIdController,announcementsGetController, announcementsPostController,announcementsGetCommentsByIDController, updateAnnouncementsController, deleteAnnouncement } from "../controllers/announcements.controllers";
+import { postBidController } from "../controllers/bids.controllers";
 import { postReviewController } from "../controllers/reviws.controller";
 import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
 
@@ -12,5 +13,6 @@ announcementsRoutes.delete("/:id",verifyAuthMiddleware, deleteAnnouncement )
 announcementsRoutes.get("/:id/comments", announcementsGetCommentsByIDController)
 announcementsRoutes.post("", verifyAuthMiddleware, announcementsPostController)
 announcementsRoutes.post("/:id/comments",verifyAuthMiddleware,postReviewController)
+announcementsRoutes.post("/:id/bids", verifyAuthMiddleware, postBidController)
 
 export default announcementsRoutes;

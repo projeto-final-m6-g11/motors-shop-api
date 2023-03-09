@@ -39,3 +39,9 @@ export interface ILoginRequest {
     password: string;
   };
 }
+
+export interface ITokenUserInfo {
+  isAdm: boolean
+  id: string
+  email: string
+}

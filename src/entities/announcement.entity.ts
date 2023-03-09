@@ -48,6 +48,6 @@ export class Announcement {
   @OneToMany(() => Review, (review) => review.announcement, { eager: true })
   review: Review[]
 
-  @OneToMany(() => Bid, (bid) => bid.announcement)
+  @OneToMany(() => Bid, (bid) => bid.announcement, { eager: true })
   bids: Bid[]
 }
