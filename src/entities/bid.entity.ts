@@ -9,9 +9,6 @@ export class Bid {
     @Column( "decimal", { precision: 12 , scale: 2 } )
     bid: number
 
-    @Column( "decimal", { precision: 12 , scale: 2 } )
-    highestBid: number
-
     @CreateDateColumn({ type: 'date' })
     createdAt: Date
 
