@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Announcement } from "./announcement.entity";
+import { User } from "./user.entity";
 
 @Entity('bid')
 export class Bid {
@@ -14,4 +15,7 @@ export class Bid {
 
     @ManyToOne(() => Announcement, (announcement) => announcement.bids)
     announcement: Announcement
+
+    @ManyToOne(() => User, (user) => user.bids)
+    user: User
 }

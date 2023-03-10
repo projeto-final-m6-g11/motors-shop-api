@@ -10,6 +10,7 @@ import { Address } from "./address.entity";
 import { Announcement } from "./announcement.entity";
 import { Recover } from "./recover.entity";
 import { Review } from "./reviews.entity";
+import { Bid } from "./bid.entity";
 
 @Entity("user")
 export class User {
@@ -52,6 +53,9 @@ export class User {
 
   @OneToMany(()=> Review, review=> review.user, { eager: true })
   review : Review[]
+
+  @OneToMany(()=> Bid, bid => bid.user)
+  bids: Bid[]
 
   @OneToMany(()=> Recover, recover => recover.user)
   recover: Recover[]
