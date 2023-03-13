@@ -84,3 +84,7 @@ export const deleteBidService = async (announcementId: string, bidId: string, to
         }
     }
 }
+
+export const updateBid = async () => {
+    
+}

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {announcementsGetIdController,announcementsGetController, announcementsPostController,announcementsGetCommentsByIDController, updateAnnouncementsController, deleteAnnouncement } from "../controllers/announcements.controllers";
-import { deleteBidController, postBidController } from "../controllers/bids.controllers";
+import { deleteBidController, patchBidController, postBidController } from "../controllers/bids.controllers";
 import { postReviewController } from "../controllers/reviws.controller";
 import verifyAuthMiddleware from "../middlewares/verifyAuth.middleware";
 
@@ -15,6 +15,6 @@ announcementsRoutes.post("", verifyAuthMiddleware, announcementsPostController)
 announcementsRoutes.post("/:id/comments",verifyAuthMiddleware,postReviewController)
 announcementsRoutes.post("/:id/bids", verifyAuthMiddleware, postBidController)
 announcementsRoutes.delete("/:id/bids/:bidId", verifyAuthMiddleware, deleteBidController)
-announcementsRoutes.patch("/:id/bids/:bidId")
+announcementsRoutes.patch("/:id/bids/:bidId", verifyAuthMiddleware, patchBidController)
 
 export default announcementsRoutes;

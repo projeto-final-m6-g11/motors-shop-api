@@ -14,3 +14,7 @@ export const deleteBidController = async (request: Request, response: Response) 
 
     return response.status(204).json({})
 }
+
+export const patchBidController = async (request: Request, response: Response) => {
+
+}
